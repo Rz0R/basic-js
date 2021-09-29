@@ -19,13 +19,89 @@ import { NotImplementedError } from '../extensions/index.js';
  * reverseMachine.decrypt('AEIHQX SX DLLU!', 'alphonse') => '!NWAD TA KCATTA'
  * 
  */
-export default class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+class VigenereCipheringMachine {
+
+  constructor(typeOfMachine = true) {
+    this.typeOfMachine = typeOfMachine;
+    this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+  encrypt(message, key) {
+
+    if (!message || !key) {
+      throw Error('Incorrect arguments!');
+    }
+
+    let result = '';
+    let keyChInd = 0;
+
+    message = message.toUpperCase();
+    key = key.toUpperCase();
+
+    for (let i = 0; i < message.length; i++) {
+
+      const ch = message[i];
+
+      if (!this.alphabet.includes(ch)) {
+        result += ch;
+        continue;
+      }
+
+      const keyCh = key[keyChInd];
+      result += this.alphabet[(this.alphabet.indexOf(ch) + this.alphabet.indexOf(keyCh)) % 26];
+
+      if (keyChInd + 1 >= key.length) {
+        keyChInd = 0;
+      } else {
+        keyChInd++;
+      }
+    }
+
+    if (this.typeOfMachine) {
+      return result;
+    }
+    return result.split('').reverse().join('');
+  }
+
+  decrypt(message, key) {
+
+    if (!message || !key) {
+      throw Error('Incorrect arguments!');
+    }
+
+    let result = '';
+    let keyChInd = 0;
+
+    message = message.toUpperCase();
+    key = key.toUpperCase();
+
+    for (let i = 0; i < message.length; i++) {
+
+      const ch = message[i];
+
+      if (!this.alphabet.includes(ch)) {
+        result += ch;
+        continue;
+      }
+
+      const keyCh = key[keyChInd];
+      result += this.alphabet[((this.alphabet.indexOf(ch) - this.alphabet.indexOf(keyCh)) + 26) % 26];
+
+      if (keyChInd + 1 >= key.length) {
+        keyChInd = 0;
+      } else {
+        keyChInd++;
+      }
+
+    }
+
+    if (this.typeOfMachine) {
+      return result;
+    }
+    return result.split('').reverse().join('');
+
   }
 }
+
+export default VigenereCipheringMachine;
