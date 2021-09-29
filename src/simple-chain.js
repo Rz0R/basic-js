@@ -4,7 +4,7 @@ import { NotImplementedError } from '../extensions/index.js';
  * Implement chainMaker object according to task description
  * 
  */
-const chainMaker =  {
+const chainMaker = {
 
   chain: [],
 
@@ -19,7 +19,7 @@ const chainMaker =  {
 
   removeLink(position) {
 
-    if (!Number.isInteger(position) || position <= 0 ||  position > this.chain.length) {
+    if (!Number.isInteger(position) || position <= 0 || position > this.chain.length) {
       this.chain = [];
       throw Error(`You can't remove incorrect link!`);
     }
@@ -35,7 +35,7 @@ const chainMaker =  {
   },
 
   finishChain() {
-    const  result  = `( ${this.chain.join(' )~~( ')} )`;
+    const result = `( ${this.chain.join(' )~~( ')} )`;
     this.chain = [];
     return result;
   }
