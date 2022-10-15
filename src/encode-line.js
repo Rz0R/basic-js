@@ -1,4 +1,4 @@
-import { NotImplementedError } from '../extensions/index.js';
+const { NotImplementedError } = require('../extensions/index.js');
 
 /**
  * Given a string, return its encoding version.
@@ -22,10 +22,12 @@ function encodeLine(str) {
       i++;
     }
 
-    result += `${(counter > 1) ? counter : ''}${ch}`;
+    result += `${counter > 1 ? counter : ''}${ch}`;
   }
 
   return result;
 }
 
-export default encodeLine;
+module.exports = {
+  encodeLine,
+};

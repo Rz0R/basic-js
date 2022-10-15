@@ -1,4 +1,4 @@
-import { NotImplementedError } from '../extensions/index.js';
+const { NotImplementedError } = require('../extensions/index.js');
 
 /**
  * Given a number, replace this number with
@@ -13,7 +13,10 @@ import { NotImplementedError } from '../extensions/index.js';
  *
  */
 function getSumOfDigits(n) {
-  n = n.toString().split('').reduce((acc, num) => acc + Number(num), 0);
+  n = n
+    .toString()
+    .split('')
+    .reduce((acc, num) => acc + Number(num), 0);
   if (n < 10) {
     return n;
   }
@@ -21,4 +24,6 @@ function getSumOfDigits(n) {
   return getSumOfDigits(n);
 }
 
-export default getSumOfDigits;
+module.exports = {
+  getSumOfDigits,
+};
